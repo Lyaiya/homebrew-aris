@@ -22,7 +22,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write
     steps:
       - name: Set up Homebrew
         id: set-up-homebrew
@@ -32,10 +31,34 @@ jobs:
         id: git_setup
         uses: Homebrew/actions/git-user-config@e99025eb970cfa124b8284a35463d87426917478 # 2026.09.28.1
 
-      - name: Bump formulae
+      - name: Bump formulae and casks
         env:
           HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HOMEBREW_GIT_COMMITTER_NAME: ${{ steps.git_setup.outputs.name }}
           HOMEBREW_GIT_COMMITTER_EMAIL: ${{ steps.git_setup.outputs.email }}
           TAP_NAME: ${{ steps.set-up-homebrew.outputs.tap-name }}
-        run: brew bump --no-fork --open-pr --formulae --bump-synced --tap="$TAP_NAME"
+        run: |
+          updates=$(
+            brew livecheck --json --newer-only --full-name --tap="$TAP_NAME" |
+              jq -r '
+                .[] | select(.version.outdated == true) |
+                [
+                  if .cask then "cask" else "formula" end,
+                  .cask // .formula,
+                  .version.latest
+                ] | @tsv
+              '
+          )
+          [[ -n "$updates" ]] || exit 0
+
+          while IFS=$'\t' read -r type package version
+          do
+            brew "bump-$type-pr" --write-only --commit --version="$version" "$package"
+          done <<< "$updates"
+
+      - name: Push commits
+        uses: Homebrew/actions/git-try-push@e99025eb970cfa124b8284a35463d87426917478 # 2026.09.28.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          directory: ${{ steps.set-up-homebrew.outputs.repository-path }}
+          branch: main
