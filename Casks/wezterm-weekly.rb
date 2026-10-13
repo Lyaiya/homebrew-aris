@@ -1,3 +1,5 @@
+# typed: strict
+
 cask "wezterm-weekly" do
   version "20261010-083911-e2a98e1b"
   sha256 "0115f1b0046258f653e2823c7ba9e7555d5cad6e40f06b0ce2d7615405f84fe9"
@@ -32,6 +34,15 @@ cask "wezterm-weekly" do
   bash_completion "#{appdir}/WezTerm.app/Contents/Resources/shell-completion/bash", target: "wezterm"
   zsh_completion "#{appdir}/WezTerm.app/Contents/Resources/shell-completion/zsh", target: "_wezterm"
   fish_completion "#{appdir}/WezTerm.app/Contents/Resources/shell-completion/fish", target: "wezterm.fish"
+
+  preflight_steps do
+    run "/bin/rmdir",
+        args:         ["{{staged_path}}/WezTerm-macos-{{version}}"],
+        must_succeed: false,
+        print_stderr: false
+  end
+
+  uninstall quit: "com.github.wez.wezterm"
 
   zap trash: "~/Library/Saved Application State/com.github.wez.wezterm.savedState"
 end
