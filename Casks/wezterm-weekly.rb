@@ -44,5 +44,10 @@ cask "wezterm-weekly" do
 
   uninstall quit: "com.github.wez.wezterm"
 
-  zap trash: "~/Library/Saved Application State/com.github.wez.wezterm.savedState"
+  zap trash: [
+    "~/Library/Application Support/wezterm",
+    "~/Library/Caches/wezterm",
+    "~/Library/Preferences/com.github.wez.wezterm.plist",
+    "~/Library/Saved Application State/com.github.wez.wezterm.savedState",
+  ]
 end
