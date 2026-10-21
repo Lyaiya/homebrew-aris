@@ -2,14 +2,15 @@
 name: brew bump
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
     paths:
       - .github/workflows/autobump.yml
   schedule:
-    # Every day at 1:0 UTC
-    - cron: 0 1 * * *
+    # Every 6 hours at 02:27, 08:27, 14:27 and 20:27 Asia/Shanghai
+    - cron: "27 */6 * * *"
 
 defaults:
   run:
