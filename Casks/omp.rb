@@ -26,5 +26,5 @@ cask "omp" do
   binary "omp-#{os}-#{arch}", target: "omp"
   generate_completions_from_executable "omp-#{os}-#{arch}", "completions", base_name: "omp"
 
-  zap rmdir: "~/.omp"
+  zap trash: "~/.omp"
 end
