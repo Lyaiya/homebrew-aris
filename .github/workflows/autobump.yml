@@ -25,13 +25,13 @@ jobs:
     steps:
       - name: Set up Homebrew
         id: set-up-homebrew
-        uses: Homebrew/actions/setup-homebrew@eb02c69dbabdb66ff183c614f4ce7ab3c077592c # 2026.10.12.1
+        uses: Homebrew/actions/setup-homebrew@4790763c0a3ba4036f72634dc079c4a7dfcd4878 # 2026.10.19.1
 
       - name: Set up git
         id: git_setup
-        uses: Homebrew/actions/git-user-config@eb02c69dbabdb66ff183c614f4ce7ab3c077592c # 2026.10.12.1
+        uses: Homebrew/actions/git-user-config@4790763c0a3ba4036f72634dc079c4a7dfcd4878 # 2026.10.19.1
 
-      - name: Bump formulae and casks
+      - name: Bump casks
         env:
           HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HOMEBREW_GIT_COMMITTER_NAME: ${{ steps.git_setup.outputs.name }}
@@ -39,25 +39,21 @@ jobs:
           TAP_NAME: ${{ steps.set-up-homebrew.outputs.tap-name }}
         run: |
           updates=$(
-            brew livecheck --json --newer-only --full-name --tap="$TAP_NAME" |
+            brew livecheck --cask --json --newer-only --full-name --tap="$TAP_NAME" |
               jq -r '
                 .[] | select(.version.outdated == true) |
-                [
-                  if .cask then "cask" else "formula" end,
-                  .cask // .formula,
-                  .version.latest
-                ] | @tsv
+                [.cask, .version.latest] | @tsv
               '
           )
           [[ -n "$updates" ]] || exit 0
 
-          while IFS=$'\t' read -r type package version
+          while IFS=$'\t' read -r package version
           do
-            brew "bump-$type-pr" --write-only --commit --version="$version" "$package"
+            brew bump-cask-pr --write-only --commit --version="$version" "$package"
           done <<< "$updates"
 
       - name: Push commits
-        uses: Homebrew/actions/git-try-push@eb02c69dbabdb66ff183c614f4ce7ab3c077592c # 2026.10.12.1
+        uses: Homebrew/actions/git-try-push@4790763c0a3ba4036f72634dc079c4a7dfcd4878 # 2026.10.19.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           directory: ${{ steps.set-up-homebrew.outputs.repository-path }}
