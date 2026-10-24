@@ -48,7 +48,8 @@ jobs:
           while IFS=$'\t' read -r package version
           do
             cask_name="${package##*/}"
-            brew bump-cask-pr --write-only --version="$version" "$package"
+            # Skip audits on Linux because DMG extraction requires macOS hdiutil.
+            brew bump-cask-pr --write-only --no-audit --version="$version" "$package"
             git add -- "Casks/${cask_name}.rb"
             if ! git diff --cached --quiet; then
               git commit -m "build(${cask_name}): bump to ${version}"
