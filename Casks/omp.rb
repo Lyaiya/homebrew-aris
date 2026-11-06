@@ -23,8 +23,10 @@ cask "omp" do
 
   container type: :naked
 
-  binary "omp-#{os}-#{arch}", target: "omp"
-  generate_completions_from_executable "omp-#{os}-#{arch}", "completions", base_name: "omp"
+  rename "omp-#{os}-#{arch}", "omp"
+
+  binary "omp"
+  generate_completions_from_executable "omp", "completions"
 
   zap rmdir: "~/.omp"
 end
