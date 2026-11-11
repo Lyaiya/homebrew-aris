@@ -4,11 +4,11 @@ cask "omp" do
   arch arm: "arm64", intel: "x64"
   os macos: "darwin", linux: "linux"
 
-  version "18.18.8"
-  sha256 arm:          "8de03d5f3ef3b37470cacc12539a547ace0152da562ee74a43099ec963a129eb",
-         intel:        "b332fab3698384da504c449c5da365d2b631305a8412161a63a1d9dd769ddac2",
-         arm64_linux:  "5e4de8d03d543414115480e03d6d232a43cacf25dcb9df8d8f93a44a8a0e7667",
-         x86_64_linux: "bfb7a85cceade6e5580fad59ff87570b4de50039b0428ed30339cf4286bd052f"
+  version "18.18.9"
+  sha256 arm:          "493060f672eb152d85afeb51451b62b4acbd68b8c4071c96e9e3226e15a7251c",
+         intel:        "3360b445d8a4ff9632b09839eed997e502233468e868feba3a7eeb73242b00b9",
+         arm64_linux:  "81c978db22a0c1fc27e49d99196dd4979ff7604151f4b0924d5581733622f86b",
+         x86_64_linux: "942a0c59a13a2eccffceab551e73ca9a5a148d69ae6320b7bfa1a7a130aafad3"
 
   url "https://github.com/can1357/oh-my-pi/releases/download/v#{version}/omp-#{os}-#{arch}"
   name "Oh My Pi"
