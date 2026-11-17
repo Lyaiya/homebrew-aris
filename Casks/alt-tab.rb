@@ -36,6 +36,5 @@ cask "alt-tab" do
     "~/Library/Preferences/com.lwouis.alt-tab-macos.license.plist",
     "~/Library/Preferences/com.lwouis.alt-tab-macos.plist",
     "~/Library/Preferences/com.lwouis.alt-tab-macos.usage.plist",
-    "~/Library/Saved Application State/com.lwouis.alt-tab-macos.savedState",
   ]
 end
