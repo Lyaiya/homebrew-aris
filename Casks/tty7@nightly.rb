@@ -28,7 +28,8 @@ cask "tty7@nightly" do
 
   uninstall quit: "com.github.tty7"
 
-  zap rmdir: "~/.config/tty7"
+  zap trash: "~/Library/Preferences/com.github.tty7.plist",
+      rmdir: "~/.config/tty7"
 
   caveats "For in-app updates, choose Nightly in Settings > General > Updates > Update channel."
 end

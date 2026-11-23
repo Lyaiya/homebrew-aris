@@ -26,5 +26,6 @@ cask "tty7" do
 
   uninstall quit: "com.github.tty7"
 
-  zap rmdir: "~/.config/tty7"
+  zap trash: "~/Library/Preferences/com.github.tty7.plist",
+      rmdir: "~/.config/tty7"
 end
