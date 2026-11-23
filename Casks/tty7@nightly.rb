@@ -29,7 +29,7 @@ cask "tty7@nightly" do
   uninstall quit:   "com.github.tty7",
             script: {
               executable: "#{appdir}/tty7.app/Contents/MacOS/tty7",
-              args:       ["server", "stop"],
+              args:       ["server", "stop", "--quiet"],
             }
 
   zap trash: "~/Library/Preferences/com.github.tty7.plist",
