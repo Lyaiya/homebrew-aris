@@ -1,9 +1,9 @@
 cask "magpie@latest" do
   arch arm: "arm64", intel: "amd64"
 
-  version "0.1.4777"
-  sha256 arm:   "22b19bc89830c062d461642cdc446970c2a3a3d921f427de147a40eabf05245f",
-         intel: "5c6dd6299c30da2537369615efc1988cb3ed25d1580897e511a66f7e23989dfc"
+  version "0.1.4783"
+  sha256 arm:   "2875f0084f2d7b44c47e52312f070502846e591907cd5cc6431d4c2a525dd1a8",
+         intel: "89df02d5d352408edfaf77bf9d4a447387740ab9fa744ed20cbf945874f2afa5"
 
   url "https://usemagpie.ai/files/v#{version}/magpie-darwin-#{arch}.zip"
   name "magpie"
