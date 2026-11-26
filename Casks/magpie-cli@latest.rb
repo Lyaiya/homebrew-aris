@@ -4,11 +4,11 @@ cask "magpie-cli@latest" do
   arch arm: "arm64", intel: "amd64"
   os macos: "darwin", linux: "linux"
 
-  version "0.1.4820"
-  sha256 arm:          "6f72760b64359e6204cb140b67eee202f4518cea30b562b7531746a852dc2b76",
-         intel:        "4d64dc75e9a9d0ab8149d9eab6a6db32e08316c4294f0f8a7f7cebbca69d70f7",
-         arm64_linux:  "ed4273082de6ac66ec3c4794a01d0a41712636c4b2537f5d34c25fc5b755d99a",
-         x86_64_linux: "eff23ffa82cc0dca2845de17a8c9ac06f1561aafa03481a4d5cc04beefa8e451"
+  version "0.1.4839"
+  sha256 arm:          "9b3b1731c41aa01fcb5b66e07820e327f710301fdc0697df5c66bcc67bba365a",
+         intel:        "270b494e4bf0fba7d154540d6e6af00968ed6326182f8d42b76f35429b841603",
+         arm64_linux:  "c8f961f42eefc595a0bde5cd5d69e8ac0bccc40aa43f703136c65c9847b9e6a2",
+         x86_64_linux: "db6b29345057e0122e77f7a1fe874b9d372817f1fd0ee728d00e4f1bd45f39ec"
 
   on_macos do
     depends_on macos: :monterey
